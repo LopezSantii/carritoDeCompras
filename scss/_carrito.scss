@@ -1,0 +1,23 @@
+.itemCarrito{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0px;
+
+    img{
+        width: 40%;
+    }
+
+    div{
+        margin-left: 15px;
+        width: 100%;
+        h3{
+            width: 100%;
+            font-size: 1.5em;
+        }
+    }
+}
+
+.carrito{
+    @include displayFlex(center, center);
+    flex-direction: column;
+}

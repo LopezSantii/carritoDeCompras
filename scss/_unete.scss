@@ -1,0 +1,27 @@
+.main_unete{
+  @include displayFlex(center, center);
+  height: 82vh;
+  flex-direction: column;
+}
+
+.form{
+    margin: 5px;
+    button{
+      height: 35px;
+    }
+}
+
+.error{
+  border-color: rgb(255, 0, 106);
+  border-style: solid;
+}
+
+.text_error{
+  margin-top: 10px;
+  display: flex;
+  color: rgb(255, 0, 106);
+  svg{
+    margin-top: 3px;
+    margin-right: 10px;
+  }
+}
