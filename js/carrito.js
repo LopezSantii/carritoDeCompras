@@ -32,6 +32,7 @@ if (usuarioLocal === undefined || usuarioLocal === null) {
 
 buttonUser.addEventListener("click", () => {
     if (usuario.nombre === undefined) {
+        modalUserHeader.innerHTML = `Iniciar Sesion`;
         buttonCerrar.classList.add("d-none");
         modalUser.innerHTML = `
         <label>Nombre</label>
@@ -138,7 +139,7 @@ buttonUser.addEventListener("click", () => {
             }
         })
     } else if (usuario.direccion === undefined) {
-        modalUserHeader.innerHTML = `Domicilio`;
+        modalUserHeader.innerHTML = `Datos de Envio`;
         modalUser.innerHTML = `
         <label>Direccion</label>
         <input class="mb-3" type="text">
