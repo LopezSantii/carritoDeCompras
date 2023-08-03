@@ -219,13 +219,21 @@ nav section a img {
 .itemCarrito img {
   width: 40%;
 }
-.itemCarrito div {
+.itemCarrito section {
   margin-left: 15px;
   width: 100%;
 }
-.itemCarrito div h3 {
+.itemCarrito section h3 {
   width: 100%;
   font-size: 1.5em;
+}
+.itemCarrito section div {
+  display: flex;
+  flex-direction: row;
+  align-items: first baseline;
+}
+.itemCarrito section div p {
+  margin-right: 20px;
 }
 
 .carrito {

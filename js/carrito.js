@@ -264,7 +264,7 @@ buttonCerrar.addEventListener("click", () => {
 // validar si hay productos ya guardados
 let carrito = [];
 let carritoLocal = JSON.parse(localStorage.getItem("carrito"));
-if (carritoLocal === undefined || carritoLocal === null) {
+if (carritoLocal === undefined || carritoLocal === null || carritoLocal.length === 0) {
     carrito = []
 } else {
     carrito = carritoLocal
@@ -322,12 +322,26 @@ function productos() {
                 cont.children[1].append(buttonAgregar);
 
                 buttonAgregar.addEventListener("click", () => {
-                    carrito.push({
+
+                    // verificamos que el producto se repite en el carrito
+                    let repeat = carrito.some((e) => e.id == carrito.id);
+                    if (repeat) {
+                        carrito.map((c) => {
+                            if (c.id === carrito.id) {
+                                // si se repite lo incrementamos la cantidad
+                                c.cantidad++;
+                            }
+                        })
+                    } else {
+                        // si no esta lo agregamos
+                       carrito.push({
                         nombre: sneakers.nombre,
                         img: sneakers.img,
                         precio: sneakers.precio,
                         enalce: sneakers.enalce,
-                    });
+                        cantidad: sneakers.cantidad
+                    }); 
+                    }
 
                     // notificaion de que el producto se agrego al carrito
                     Toastify({
@@ -342,8 +356,7 @@ function productos() {
                             background: "black",
                         },
                     }).showToast();
-                    let carritoJson = JSON.stringify(carrito)
-                    localStorage.setItem("carrito", carritoJson);
+                        localStorage.setItem("carrito", JSON.stringify(carrito));
                 })
                 
             });
@@ -355,25 +368,8 @@ productos();
 
 // crear modal con productos y formularios de compra
 buttonCarrito.addEventListener("click", () => {
-    
-    // mensaje si el carrito esta vacio
-    carrito.length === 0 ? modalCarrito.innerHTML = `<p class= "my-center">El carrito esta vacio</p>` : modalCarrito.innerHTML = ``;
-    
-    carrito.forEach((productos) => {
-        let carritoCont = document.createElement("div");
-        carritoCont.classList.add("itemCarrito", "container");
-        carritoCont.innerHTML = `
-            <img class"img-fluid" src="${productos.img}" alt="${productos.nombre}">
-            <div class"col-6">
-                <h3>${productos.nombre}</h3>
-                <p>$ ${productos.precio}</p>
-            </div>
-        `;
-        modalCarrito.append(carritoCont);
-    })
-    
     // suma de productos en el carrito
-    let suma = carrito.reduce((acc, el) => acc + el.precio, 0);
+    let suma = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0);
     modalFooter.innerHTML = `
     <p class="col-8" id="total">$ ${suma}</p> `
     // boton para comprar
@@ -381,8 +377,8 @@ buttonCarrito.addEventListener("click", () => {
     buttonComprar.classList.add("col-3","btn","bg_button");
     buttonComprar.innerHTML = "Comprar";
     modalFooter.append(buttonComprar);
-    if (carrito.length === 0) buttonComprar.disabled = true;
-
+    
+    llenarCarrito(buttonComprar);
     buttonComprar.addEventListener("click", () => {
 
         if (usuario.direccion === undefined) {
@@ -413,6 +409,65 @@ buttonCarrito.addEventListener("click", () => {
 
 // funciones para rellenar los modales
 
+function llenarCarrito() {
+    // mensaje si el carrito esta vacio
+    if (carrito.length === 0) {
+        modalCarrito.innerHTML = `
+        <svg class="mt-3" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        <p class= "mt-3 my-center">El carrito esta vacio</p>`;
+        modalFooter.innerHTML = ``;
+    }else {
+        modalCarrito.innerHTML = ``;
+    }
+
+    carrito.forEach((productos) => {
+        let carritoCont = document.createElement("div");
+        carritoCont.classList.add("itemCarrito", "container");
+        carritoCont.innerHTML = `
+            <img class"img-fluid" src="${productos.img}" alt="${productos.nombre}">
+            <section>
+                <h3 class"col-6">${productos.nombre}</h3>
+                <div class"col-6">
+                    <div>
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </button>
+                        <p class="mx-auto">${productos.cantidad}</p>
+                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p>$ ${productos.precio * productos.cantidad}</p>
+                </div>
+            </section>
+        `;
+        modalCarrito.append(carritoCont);
+
+        let eliminarProducto = document.createElement("button");
+        eliminarProducto.classList.add("btn");
+        eliminarProducto.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+        </svg>`
+        carritoCont.children[1].lastElementChild.append(eliminarProducto);
+
+        eliminarProducto.addEventListener("click", borrarElementos);
+    })
+
+}
+
+function borrarElementos(event) {
+    let productId = event.target.parentElement.dataset.productId;
+    let elementoEliminado = carrito.find((elemet) => elemet.id === productId);
+    carrito = carrito.filter((carritoNew) => carritoNew != elementoEliminado);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    llenarCarrito();
+}
+
 function crearFormEnvio() {
     // formulario de envio del producto
     modalFooter.innerHTML = "";
@@ -420,12 +475,22 @@ function crearFormEnvio() {
     let formulario = document.createElement("form");
     formulario.classList.add("formulario_envio","row","mx-1");
     formulario.innerHTML = `
-    <h3>Datos personales</h2>
+    <div class="d-flex align-items-baseline">
+        <h3 class="me-3">Datos personales</h3>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person"viewBox="0 0 16 16">
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+        </svg>    
+    </div>
     <label>Nombre</label>
     <input class="mb-3 col-12" type="text" >
     <label>Correo electronico</label>
     <input class="mb-3 col-12" type="email">
-    <h3>Datos del envio</h2>
+    <div class="d-flex align-items-baseline">
+    <h3 class="me-3">Datos del envio</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+    </svg>
+    </div>
     <label>Direccion</label>
     <input class="mb-3 col-12">
     <label>Barrio</label>

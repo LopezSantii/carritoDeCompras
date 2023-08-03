@@ -1,38 +1,50 @@
 [
     {
+        "id": 1,
         "nombre": "Jordan 1 Low `Smoke Grey`",
         "img": "img/snkers/jordanlow/smake.jpg",
         "precio": 67000,
-        "enlace": "pages/sneakers/jordanlow.html"
+        "enlace": "pages/sneakers/jordanlow.html",
+        "cantidad": 1
     },
     {
+        "id": 2,
         "nombre": "Jordan 1 Mid `Bred Banned`",
         "img": "img/snkers/jordanmid/nike-snkrs-calendario-de-fechas-de-lanzamientos.jpg",
         "precio": 73000,
-        "enlace": "pages/sneakers/jordanbred.html"
+        "enlace": "pages/sneakers/jordanbred.html",
+        "cantidad": 1
     },
     {
+        "id": 3,
         "nombre": "Nike Air Rubber Dunk X Off-white",
         "img": "img/snkers/dunk/nike-snkrs-calendario-de-fechas-de-lanzamientos (1).jpg",
         "precio": 83000,
-        "enlace": "pages/sneakers/dunk.html"
+        "enlace": "pages/sneakers/dunk.html",
+        "cantidad": 1
     },
     {
+        "id": 4,
         "nombre": "Nike Dunk High Retro `Orange Blaze`",
         "img": "img/snkers/dunkhigh/nike-snkrs-calendario-de-fechas-de-lanzamientos (2).jpg",
         "precio": 73000,
-        "enlace": "pages/sneakers/dunkhigh.html"
+        "enlace": "pages/sneakers/dunkhigh.html",
+        "cantidad": 1
     },
     {
+        "id": 5,
         "nombre": "Nike Dunk Low SB `Ceramic`",
         "img": "img/snkers/dunklow/nike-snkrs-calendario-de-fechas-de-lanzamientos.jpg",
         "precio": 70000,
-        "enlace": "pages/sneakers/dunklow.html"
+        "enlace": "pages/sneakers/dunklow.html",
+        "cantidad": 1
     },
     {
+        "id": 6,
         "nombre": "Jordan 4 Retro X Off-white Sail",
         "img": "img/snkers/jordan4/nike-snkrs-calendario-de-fechas-de-lanzamientos.jpg",
         "precio": 112000,
-        "enlace": "pages/sneakers/jordan4.html"
+        "enlace": "pages/sneakers/jordan4.html",
+        "cantidad": 1
     }
 ]
