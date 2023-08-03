@@ -431,12 +431,12 @@ function llenarCarrito() {
                 <h3 class"col-6">${productos.nombre}</h3>
                 <div class"col-6">
                     <div>
-                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <button id="res" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                             </svg>
                         </button>
                         <p class="mx-auto">${productos.cantidad}</p>
-                        <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <button id="sum" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                             </svg>
                         </button>
@@ -446,6 +446,20 @@ function llenarCarrito() {
             </section>
         `;
         modalCarrito.append(carritoCont);
+
+        let buttonSuma = document.getElementById("sum");
+
+        buttonSuma.addEventListener("click", () => {
+            carrito.map((element) => element.cantidad++)
+            llenarCarrito();
+        })
+
+        let buttonResta = document.getElementById("res");
+
+        buttonResta.addEventListener("click", () => {
+            carrito.map((element) => element.cantidad > 1 ? element.cantidad--: borrarElementos)
+            llenarCarrito();
+        })
 
         let eliminarProducto = document.createElement("button");
         eliminarProducto.classList.add("btn");
