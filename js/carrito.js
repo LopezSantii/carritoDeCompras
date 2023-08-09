@@ -42,7 +42,7 @@ buttonUser.addEventListener("click", () => {
         <label>Correo electronico</label>
         <input class="mb-3" type="email">
         <label>Contraseña</label>
-        <input class="mb-3" type="password" placeholder="contraseña">`
+        <input class="mb-3" type="password">`
         let error = document.createElement("div");
         error.className = "text_error"
         modalUser.append(error);
