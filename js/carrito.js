@@ -36,7 +36,7 @@ buttonUser.addEventListener("click", () => {
         buttonCerrar.classList.add("d-none");
         modalUser.innerHTML = `
         <label>Nombre</label>
-        <input class="mb-3" type="text">
+        <input class="mb-3 col-12" type="text">
         <label>Fecha de nacimiento</label>
         <input class="mb-3" type="date">
         <label>Correo electronico</label>
@@ -291,16 +291,15 @@ let modalFooter = document.getElementById("modal_footer")
 let cerrarModal = document.querySelector("#exampleModal");
 
 //consumiendo api
-function productos() {
-    return fetch("../json/productos.json")
-        .then(response => response.json())
-        .then(data => {
-            // crear tienda de productos
-            let arrayDeItems = data
-            arrayDeItems.forEach(sneakers => {
-                let cont = document.createElement("div");
-                cont.classList.add("col-lg-4", "col-md-6", "my-1");
-                cont.innerHTML = `
+async function productos() {
+    try {
+        const response = await fetch("../json/productos.json");
+        const data = await response.json();
+        // crear tienda de productos
+        data.forEach(sneakers => {
+            let cont = document.createElement("div");
+            cont.classList.add("col-lg-4", "col-md-6", "my-1");
+            cont.innerHTML = `
                 <a href="${sneakers.enlace}">
                     <img src="${sneakers.img}" class="card-img-top" alt="${sneakers.nombre}">
                 </a>
@@ -314,54 +313,55 @@ function productos() {
                 </div>
             
             `;
-                shop.append(cont);
-            
-                let buttonAgregar = document.createElement("button");
-                buttonAgregar.innerHTML = "Agregar al carrito";
-                buttonAgregar.classList.add("buttonCarrito", "btn", "bg_button");
-                cont.children[1].append(buttonAgregar);
+            shop.append(cont);
 
-                buttonAgregar.addEventListener("click", () => {
+            let buttonAgregar = document.createElement("button");
+            buttonAgregar.innerHTML = "Agregar al carrito";
+            buttonAgregar.classList.add("buttonCarrito", "btn", "bg_button");
+            cont.children[1].append(buttonAgregar);
 
-                    // verificamos que el producto se repite en el carrito
-                    let repeat = carrito.some((e) => e.id == carrito.id);
-                    if (repeat) {
-                        carrito.map((c) => {
-                            if (c.id === carrito.id) {
-                                // si se repite lo incrementamos la cantidad
-                                c.cantidad++;
-                            }
-                        })
-                    } else {
-                        // si no esta lo agregamos
-                       carrito.push({
+            buttonAgregar.addEventListener("click", () => {
+
+                // verificamos que el producto se repite en el carrito
+                let repeat = carrito.some((e) => e.id == carrito.id);
+                if (repeat) {
+                    carrito.map((c) => {
+                        if (c.id === carrito.id) {
+                            // si se repite lo incrementamos la cantidad
+                            c.cantidad++;
+                        }
+                    });
+                } else {
+                    // si no esta lo agregamos
+                    carrito.push({
                         nombre: sneakers.nombre,
                         img: sneakers.img,
                         precio: sneakers.precio,
                         enalce: sneakers.enalce,
                         cantidad: sneakers.cantidad
-                    }); 
-                    }
+                    });
+                }
 
-                    // notificaion de que el producto se agrego al carrito
-                    Toastify({
-                        text: "Producto agregado",
-                        duration: 800,
-                        newWindow: true,
-                        close: true,
-                        gravity: "top",
-                        position: "right",
-                        stopOnFocus: true,
-                        style: {
-                            background: "black",
-                        },
-                    }).showToast();
-                        localStorage.setItem("carrito", JSON.stringify(carrito));
-                })
-                
+                // notificaion de que el producto se agrego al carrito
+                Toastify({
+                    text: "Producto agregado",
+                    duration: 800,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "black",
+                    },
+                }).showToast();
+                localStorage.setItem("carrito", JSON.stringify(carrito));
             });
-        })
-        .catch(err => console.error(err))
+
+        });
+    } catch (err) {
+        return console.error(err);
+    }
 }
 
 productos();
