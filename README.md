@@ -28,7 +28,7 @@ Para finalizar se crea un formulario de pago con las validaciones necesarias com
 
 ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/337be027-2c56-4410-904b-26999c43ea2e)
 
-## Pago
+## Experiencia de usuario
 Para mejorar la experiencia de usuario use dos librerias de notificaciones que le permiten al usuario saber que esta pasando
 
 ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/967cabb4-39e4-41bf-8165-652f9c68d884) ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/3b93ea25-ea69-4b30-b9bd-83a26a981124)   ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/dea59edf-9e86-45b2-9e61-8b6a3475e183)  ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/4bc73b5c-14f1-421c-8c9a-082750f9dbef)
