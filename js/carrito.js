@@ -323,10 +323,10 @@ async function productos() {
             buttonAgregar.addEventListener("click", () => {
 
                 // verificamos que el producto se repite en el carrito
-                let repeat = carrito.some((e) => e.id == carrito.id);
+                let repeat = carrito.some((e) => e.id === sneakers.id);
                 if (repeat) {
                     carrito.map((c) => {
-                        if (c.id === carrito.id) {
+                        if (c.id === sneakers.id) {
                             // si se repite lo incrementamos la cantidad
                             c.cantidad++;
                         }
@@ -431,12 +431,12 @@ function llenarCarrito() {
                 <h3 class"col-6">${productos.nombre}</h3>
                 <div class"col-6">
                     <div>
-                        <button id="res" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <button class="res btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                             </svg>
                         </button>
                         <p class="mx-auto">${productos.cantidad}</p>
-                        <button id="sum" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <button class="sum btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                             </svg>
                         </button>
@@ -447,17 +447,16 @@ function llenarCarrito() {
         `;
         modalCarrito.append(carritoCont);
 
-        let buttonSuma = document.getElementById("sum");
+        let buttonSuma = carritoCont.querySelector(".sum");
+        let buttonResta = carritoCont.querySelector(".res");
 
         buttonSuma.addEventListener("click", () => {
-            carrito.map((element) => element.cantidad++)
+            productos.cantidad++
             llenarCarrito();
         })
 
-        let buttonResta = document.getElementById("res");
-
         buttonResta.addEventListener("click", () => {
-            carrito.map((element) => element.cantidad > 1 ? element.cantidad--: borrarElementos)
+            productos.cantidad > 1 ? productos.cantidad--: borrarElementos;
             llenarCarrito();
         })
 
