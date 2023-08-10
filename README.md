@@ -18,6 +18,18 @@ Por otro lado el otro boton muestra el carrito, en este se puede incrementar la 
 
 ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/898ba742-687a-4cbe-945f-8aab0b8ca34e)
 
+## Envio
+Para seguir con la compra si ya te registraste te preguntara si quieres usar la direccion guardada o si quieres enviarlo a otro lugar
+
+![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/7989ca82-88be-4b08-89bf-6a7e9b866a45)
+
+## Pago
+Para finalizar se crea un formulario de pago con las validaciones necesarias como la fecha de caducida y el numero de tarjeta entre otros
+
+![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/337be027-2c56-4410-904b-26999c43ea2e)
+
+
+
 
 ## lenguajes y tecnologias
 #### Lenguajes
