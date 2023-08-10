@@ -1,4 +1,4 @@
-# Beaouvoir
+# Carrito de compras
 Hola a todos este es mi primer proyecto utilizando JavaScript, la aplicacion es un carrito de compras que simula obtener datos de una api la cual trae productos que se utilizan para crear la tienda
 
 ![image](https://github.com/LopezSantii/carritoDeCompras/assets/105465529/5739cd24-9152-4999-a097-ecd887f2c3cc)
